@@ -1,13 +1,13 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <QWidget>
-#include "calculation.h"
+#include <QOpenGLWidget>
+#include "matrices.h"
 
 
 class Renderer;
 
-class Widget : public QWidget
+class Widget : public QOpenGLWidget
 {
     Q_OBJECT
 
@@ -28,14 +28,14 @@ protected:
 
 private:
     //typedef void (*buildGraph)(void);
-    void buildGraph();
+    void chooseModel();
     void generateGraph1();
     void generateGraph2();
     void customGraph();
 
     Renderer *renderer;
     //Calculation calc;
-    QPoint oldMouse;
+    QPointF oldMouse;
     bool initiated;
     int graphType;
 };

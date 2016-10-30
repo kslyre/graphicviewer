@@ -1,7 +1,7 @@
 #ifndef CALCULATION_H
 #define CALCULATION_H
 
-//#include <QMatrix3x3>
+//include <QMatrix3x3>
 
 class Calculation
 {

@@ -4,70 +4,78 @@
 
 Camera::Camera()
 {
-    axis = QPoint(0, 0);
+    axis = QPointF(0, 0);
     mouseIsPressed = false;
 
-    L=Lx=-0.0; R=Rx=-Lx;
-    T=Tx=0.0; B=Bx=-Tx;
+    L= -0.0; R= -L;
+    T= 0.0;  B= -T;
 }
 
 void Camera::initWH(QSize s)
 {
-    L=Lx= -s.width()/2; R=Rx=-Lx;
-    T=Tx= s.height()/2; B=Bx=-Tx;
+    L= -s.width()/2; R= -L;
+    T= s.height()/2; B= -T;
 }
 
-void Camera::setWH(int x, int y)
+void Camera::setWH(QSize s)
 {
-    W = x;
-    H = y;
+    W = s.width();
+    H = s.height();
 }
 
-QPoint Camera::getWH()
+QPointF Camera::getWH()
 {
-    return QPoint(W, H);
+    return QPointF(W, H);
 }
 
-QPoint Camera::getLR()
+QPointF Camera::getLR()
 {
-    return QPoint(L, R);
+    return QPointF(L, R);
 }
 
-QPoint Camera::toDisplay(QPoint p)
+QPointF Camera::getTB()
+{
+    return QPointF(T, B);
+}
+
+QPointF Camera::toDisplay(QPointF p)
 {
     //qInfo() << t.x() << " " << t.y();
-    return QPoint((float)(p.x()-L)/(float)(R-L)*W,
-                  (float)(T-p.y())/(float)(T-B)*H);
+    return QPointF((p.x()-L)/(R-L)*W,
+                   (T-p.y())/(T-B)*H);
 }
 
-QPoint Camera::toCamera(QPoint p)
+QPointF Camera::toCamera(QPointF p)
 {
-    return QPoint(L+(R-L)*(p.x()+0.5)/W, T-(T-B)*(p.y()+0.5)/H);
+    return QPointF(L+(R-L)*(p.x()+0.5)/W,
+                   T-(T-B)*(p.y()+0.5)/H);
 }
 
-void Camera::recalcLRTB(double w, double h)
+void Camera::recalcLRTB(QSize oldS) //double w, double h)
 {
-    L=Lx *= w;
-    R=Rx *= w;
-    T=Tx *= h;
-    B=Bx *= h;
+    double w = W/(double)oldS.width();
+    double h = H/(double)oldS.height();
+    L *= w;
+    R *= w;
+    T *= h;
+    B *= h;
     //qInfo() << L << " " << R;
 }
 
-void Camera::navigate(QPoint dp)
+void Camera::navigate(QPointF dp)
 {
-    L=Lx -= (Rx-Lx)*(double)dp.x()/(double)W;
-    R=Rx -= (Rx-Lx)*(double)dp.x()/(double)W;
-    T=Tx += (Tx-Bx)*(double)dp.y()/(double)H;
-    B=Bx += (Tx-Bx)*(double)dp.y()/(double)H;
+    L -= (R-L)*dp.x()/W;
+    R -= (R-L)*dp.x()/W;
+    T += (T-B)*dp.y()/H;
+    B += (T-B)*dp.y()/H;
 }
 
-void Camera::scale(QPoint p, double k)
+void Camera::scale(QPointF p, double k)
 {
-    QPoint dp = toCamera(p);
-    L=Lx = dp.x() - (double)(dp.x() - Lx)/k;
-    R=Rx = dp.x() - (double)(dp.x() - Rx)/k;
-    T=Tx = dp.y() + (double)(Tx - dp.y())/k;
-    B=Bx = dp.y() + (double)(Bx - dp.y())/k;
+    QPointF dp = toCamera(p);
+    L = dp.x() - (dp.x() - L)/k;
+    R = dp.x() - (dp.x() - R)/k;
+    T = dp.y() + (T - dp.y())/k;
+    B = dp.y() + (B - dp.y())/k;
 }
 
