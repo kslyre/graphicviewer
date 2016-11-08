@@ -10,6 +10,7 @@ class Graphic : public BaseModel
 {
 public:
     Graphic();
+    Graphic(int);
     ~Graphic();
 
     void buildModel(QPointF, QPointF) override;

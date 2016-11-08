@@ -18,6 +18,7 @@ public:
     QPointF getWH();
     QPointF getLR();
     QPointF getTB();
+    double getScale();
     QPointF toDisplay(QPointF);
     QPointF toCamera(QPointF);
     void recalcLRTB(QSize);

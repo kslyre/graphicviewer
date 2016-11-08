@@ -5,23 +5,28 @@ Graphic::Graphic()
 
 }
 
+Graphic::Graphic(int id)
+{
+    setId(id);
+}
+
 Graphic::~Graphic()
 {
     data.clear();
 }
 
-void Graphic::buildModel(QPointF lr, QPointF tb)
+void Graphic::buildModel(QPointF lr, QPointF tb)    // parameters for model borders. unused
 {
     data.clear();
     switch (this->id) {
-    case 1:
+    case SIN_COS:
         if(lr.x() != lr.y())
         for(int i=lr.x(); i < lr.y(); i++)
         {
             data.append(QPointF(i, 100*qSin(i*M_PI/180)-30*qCos(i*M_PI/45)));
         }
         break;
-    case 2:
+    case PARAMETRIC_1:
         for(int i=0; i < 240*M_PI; i++)
         {
             double pi = i*M_PI/45;

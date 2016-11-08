@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QPoint>
+#include "typeEnums.h"
 
 class BaseModel
 {

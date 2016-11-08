@@ -26,10 +26,7 @@ public:
 
     void fillMatrix(matrix b);
 
-    void clear();
-
-
-
+    void deleteMatrix();
 
     Matrix(int s, bool t);
     Matrix operator *(const int b);

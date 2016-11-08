@@ -5,6 +5,7 @@ Affine2D::Affine2D()
     aff2d = Matrix(3);
 }
 
+// filling Matrix using selected vectors
 void Affine2D::affine(vector f, vector s)
 {
     aff2d.fillMatrix(matrix({f,
@@ -13,6 +14,7 @@ void Affine2D::affine(vector f, vector s)
                             }));
 }
 
+// Transform
 Matrix Affine2D::T(double x, double y)
 {
     affine(vector({1,0,x}),
@@ -21,6 +23,7 @@ Matrix Affine2D::T(double x, double y)
     return aff2d;
 }
 
+// Scale
 Matrix Affine2D::S(double kx, double ky)
 {
     kx = kx!=0 ? kx : 1;
@@ -32,20 +35,29 @@ Matrix Affine2D::S(double kx, double ky)
     return aff2d;
 }
 
+// Mirror
 Matrix Affine2D::M(double x, double y)
 {
-    x = x<0 ? x: -x;
-    y = y<0 ? y: -y;
+    x = x<0 ? -1: 1;
+    y = y<0 ? -1: 1;
 
     S(x,y);
 
     return aff2d;
 }
 
+// Rotate (Angle)
 Matrix Affine2D::R(double angle)
 {
     double cos = qCos(angle*M_PI/180);
     double sin = qSin(angle*M_PI/180);
+
+    return R(cos, sin);;
+}
+
+// Rotate (cos and sin)
+Matrix Affine2D::R(double cos, double sin)
+{
     affine(vector({cos,-sin,0}),
            vector({sin, cos,0}));
 

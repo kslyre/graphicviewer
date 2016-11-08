@@ -1,22 +1,32 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
-#include <QOpenGLWidget>
-#include "matrices.h"
-
+#include <QWidget>
+#include <QDebug>
+#include "affine2d.h"
+#include <models/basemodel.h>
+#include <models/graphicmv.h>
+#include <models/modelmv.h>
+#include "typeEnums.h"
+#include "affineparams.h"
+#include "chosenpoint.h"
+#include <QtMath>
 
 class Renderer;
 
-class Widget : public QOpenGLWidget
+class Widget : public QWidget
 {
     Q_OBJECT
 
 public:
     Widget(Renderer *renderer, QWidget *parent);
 
+    void setAffine(AffineParams*, AffineTypes);
+
+    ChosenPoint *chPoint;
 
 public slots:
-    void setGraphFunc(int); //void (*f_func)());
+    void setModel(int);
 
 protected:
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
@@ -27,17 +37,10 @@ protected:
     void wheelEvent(QWheelEvent *event);
 
 private:
-    //typedef void (*buildGraph)(void);
-    void chooseModel();
-    void generateGraph1();
-    void generateGraph2();
-    void customGraph();
-
     Renderer *renderer;
-    //Calculation calc;
     QPointF oldMouse;
     bool initiated;
-    int graphType;
+
 };
 
 #endif // WIDGET_H
