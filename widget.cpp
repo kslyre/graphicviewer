@@ -7,7 +7,7 @@
 #include <QTimer>
 
 Widget::Widget(Renderer *renderer, QWidget *parent)
-    : QOpenGLWidget(parent), renderer(renderer)
+    : QWidget(parent), renderer(renderer)
 {
     initiated = false;
     this->setMinimumSize(QSize(30, 30));

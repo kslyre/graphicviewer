@@ -14,7 +14,7 @@ public:
 
     void buildModel(QPointF, QPointF) override;
 
-    Matrix apex, apexres;
+    Matrix apex, apexres, affres;
     Matrix edge;
     QStack<Matrix> affines;
     void reset();
