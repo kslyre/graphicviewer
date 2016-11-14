@@ -88,9 +88,6 @@ void Renderer::chooseAction(int type)
         dynamic_cast<Model*>(model)->pushAffine(Affine2D().T(20,20));
         dynamic_cast<Model*>(model)->pushAffine(Affine2D().R(30));
         dynamic_cast<Model*>(model)->pushAffine(Affine2D().T(-20,-20));
-        // rotate a,b
-        // поворот на угол cos alp = A/sqta2+b2
-        // поворот относ ребра
         /*dynamic_cast<Model*>(model)->pushAffine(Affine2D().T(-20,0));
         dynamic_cast<Model*>(model)->pushAffine(Affine2D().R(-45));
         dynamic_cast<Model*>(model)->pushAffine(Affine2D().M(-1,1));

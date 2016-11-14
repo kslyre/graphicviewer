@@ -7,7 +7,7 @@
 
 class Renderer;
 
-class Widget : public QWidget
+class Widget : public QOpenGLWidget
 {
     Q_OBJECT
 

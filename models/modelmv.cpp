@@ -43,13 +43,21 @@ void Model::setId(int id)
                                 vector({3,4})
                                }));
         apex = apex * 20;
-        affres = Matrix(3,true);
         apexres = apex;
 
         break;
     default:
         break;
     }
+
+    /*
+    affines = Affine2D().T(1,2)*Affine2D().M(-1,1)*Affine2D().T(-1,-2);
+
+    apex.fillMatrix(matrix({vector({1,2,3}),
+                            vector({1,2,3}),
+                            vector({1,2,3})
+                           }));
+    */
 }
 
 void Model::pushAffine(Matrix am)
@@ -64,6 +72,5 @@ void Model::applyAffines()
     {
         aff = affines.pop() * aff;
     }
-    affres = aff * affres;
-    apexres = affres * apex;
+    apexres = aff * apexres;
 }
