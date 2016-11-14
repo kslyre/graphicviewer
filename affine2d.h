@@ -11,12 +11,13 @@ public:
 
     Matrix T(double x, double y);
     Matrix S(double kx, double ky);
-    Matrix M(double x, double y);
-    Matrix R(double cos);
+    Matrix M(double, double);
+    Matrix R(double angle);
+    Matrix R(double cos, double sin);
 private:
     Matrix aff2d;
 
-    void affine(vector f, vector s);
+    void affine(vector, vector);
 };
 
 #endif // AFFINE2D_H

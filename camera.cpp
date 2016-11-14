@@ -38,6 +38,11 @@ QPointF Camera::getTB()
     return QPointF(T, B);
 }
 
+double Camera::getScale()
+{
+    return L-R > T-B ? (L-R)/W : (T-B)/H;
+}
+
 QPointF Camera::toDisplay(QPointF p)
 {
     //qInfo() << t.x() << " " << t.y();
@@ -51,7 +56,7 @@ QPointF Camera::toCamera(QPointF p)
                    T-(T-B)*(p.y()+0.5)/H);
 }
 
-void Camera::recalcLRTB(QSize oldS) //double w, double h)
+void Camera::recalcLRTB(QSize oldS)
 {
     double w = W/(double)oldS.width();
     double h = H/(double)oldS.height();
@@ -64,10 +69,19 @@ void Camera::recalcLRTB(QSize oldS) //double w, double h)
 
 void Camera::navigate(QPointF dp)
 {
-    L -= (R-L)*dp.x()/W;
-    R -= (R-L)*dp.x()/W;
-    T += (T-B)*dp.y()/H;
-    B += (T-B)*dp.y()/H;
+    //qInfo() << R-L << " " << T-B;
+    double dRL = R-L, dTB = T-B;
+
+    L -= dRL*dp.x()/W;
+    R  = L + dRL;
+    T += dTB*dp.y()/H;
+    B  = T - dTB;
+
+    /*
+    L -= dRL*dp.x()/W;
+    R -= dRL*dp.x()/W;
+    T += dTB*dp.y()/H;
+    B += dTB*dp.y()/H;*/
 }
 
 void Camera::scale(QPointF p, double k)

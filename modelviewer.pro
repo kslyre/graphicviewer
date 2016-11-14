@@ -17,7 +17,10 @@ SOURCES += main.cpp \
     models/graphicmv.cpp \
     models/modelmv.cpp \
     matrix.cpp \
-    affine2d.cpp
+    affine2d.cpp \
+    affine3d.cpp \
+    affineparams.cpp \
+    chosenpoint.cpp
 
 HEADERS += \
     window.h \
@@ -28,4 +31,8 @@ HEADERS += \
     models/graphicmv.h \
     models/modelmv.h \
     matrix.h \
-    affine2d.h
+    affine2d.h \
+    affine3d.h \
+    affineparams.h \
+    typeEnums.h \
+    chosenpoint.h

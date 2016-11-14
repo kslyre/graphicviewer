@@ -5,21 +5,26 @@
 #include <QFont>
 #include <QPen>
 #include <QWidget>
-#include <models/basemodel.h>
+#include <QPainter>
+#include <QPaintEvent>
+#include <QWidget>
+#include <QtMath>
 #include "camera.h"
-#include "affine2d.h"
+#include <models/basemodel.h>
+#include <models/graphicmv.h>
+#include <models/modelmv.h>
+
 
 class Renderer
 {
 public:
     Renderer();
+
     Camera camera;
-    //QList<QPointF> graph;
-    BaseModel *model;
+    QVector<BaseModel*> model;
 
 public:
     void paint(QPainter *painter, QPaintEvent *event);
-    void chooseAction(int);
 
 private:
     QBrush background;

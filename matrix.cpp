@@ -36,7 +36,7 @@ void Matrix::init(int h, int w)
     H = h;
 }
 
-void Matrix::clear()
+void Matrix::deleteMatrix()
 {
     for(int i=0; i<H; i++)
         a[H].clear();
